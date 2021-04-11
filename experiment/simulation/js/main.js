@@ -10,10 +10,8 @@ document.addEventListener('DOMContentLoaded', function(){
 	playButton.addEventListener('click', function() { window.clearTimeout(tmHandle); tmHandle = setTimeout(draw, 1000 / fps); });
 	restartButton.addEventListener('click', function() {restart();});
 
-	function restart() 
-	{ 
-		window.clearTimeout(tmHandle); 
-
+	function setall()
+	{
 		bldg = [
 			[[startx, height], [endx, height], [endx, 2 * height], [startx, 2 * height]],
 			[[startx, 2 * height], [endx, 2 * height], [endx, 3 * height], [startx, 3 * height]],
@@ -27,12 +25,12 @@ document.addEventListener('DOMContentLoaded', function(){
 			[endx + 250 , 4 * height + 40],
 		];
 
-		a = -1 * m1 * m2 * m3;
-		b = m1 * m2 * k3 + m1 * m3 * (k2 + k3) + m2 * m3 * (k1 + k2);
-		c = k2 * k2 * m3 - m1 * k3 * (k3 + k2) - m2 * (k1 + k2) * k3 - m3 * (k1+ k2) * (k2 + k3) + m1 * k3 * k3;
-		d = (k1 + k2) * (k2 + k3) * (k3) - k2 * k2 * k3 - k3 * k3 * (k1 + k2);
+		const coeff_x_3 = -1 * mass1 * mass2 * mass3;
+		const coeff_x_2 = mass1 * mass2 * stiff3 + mass1 * mass3 * (stiff2 + stiff3) + mass2 * mass3 * (stiff1 + stiff2);
+		const coeff_x = stiff2 * stiff2 * mass3 - mass1 * stiff3 * (stiff3 + stiff2) - mass2 * (stiff1 + stiff2) * stiff3 - mass3 * (stiff1+ stiff2) * (stiff2 + stiff3) + mass1 * stiff3 * stiff3;
+		const c = (stiff1 + stiff2) * (stiff2 + stiff3) * (stiff3) - stiff2 * stiff2 * stiff3 - stiff3 * stiff3 * (stiff1 + stiff2);
 
-		lambda = CubicSolve(a, b, c, d);
+		lambda = CubicSolve(coeff_x_3, coeff_x_2, coeff_x, c);
 		lambda.sort();
 
 		if(mode == 1)
@@ -54,10 +52,15 @@ document.addEventListener('DOMContentLoaded', function(){
 		}
 
 		timeperiod = 2 * Math.PI;
-		root = Math.sqrt(timec);
+		const root = Math.sqrt(timec);
 		timeperiod /= root;
 		timeperiod *= 50;
+	}
 
+	function restart() 
+	{ 
+		window.clearTimeout(tmHandle); 
+		setall();
 		tmHandle = window.setTimeout(draw, 1000 / fps); 
 	}
 
@@ -67,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	slider_mass1.oninput = function() {
 		output_mass1.innerHTML = this.value;
-		m1 = Number(document.getElementById("mass1").value);
+		mass1 = Number(document.getElementById("mass1").value);
 		restart();
 	};
 
@@ -77,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	slider_mass2.oninput = function() {
 		output_mass2.innerHTML = this.value;
-		m2 = Number(document.getElementById("mass2").value);
+		mass2 = Number(document.getElementById("mass2").value);
 		restart();
 	};
 
@@ -87,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	slider_mass3.oninput = function() {
 		output_mass3.innerHTML = this.value;
-		m3 = Number(document.getElementById("mass3").value);
+		mass3 = Number(document.getElementById("mass3").value);
 		restart();
 	};
 
@@ -97,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	slider_stiffness1.oninput = function() {
 		output_stiffness1.innerHTML = this.value;
-		k1 = Number(document.getElementById("stiffness1").value);
+		stiff1 = Number(document.getElementById("stiffness1").value);
 		restart();
 	};
 
@@ -107,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	slider_stiffness2.oninput = function() {
 		output_stiffness2.innerHTML = this.value;
-		k2 = Number(document.getElementById("stiffness2").value);
+		stiff2 = Number(document.getElementById("stiffness2").value);
 		restart();
 	};
 
@@ -117,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	slider_stiffness3.oninput = function() {
 		output_stiffness3.innerHTML = this.value;
-		k3 = Number(document.getElementById("stiffness3").value);
+		stiff3 = Number(document.getElementById("stiffness3").value);
 		restart();
 	};
 
@@ -159,23 +162,20 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	let height = 120;
 
-	let m1 = 2250;
-	let m2 = 2250;
-	let m3 = 2250;
-	let k1 = 10364000;
-	let k2 = 10364000;
-	let k3 = 10364000;
-
-	let a = -1 * m1 * m2 * m3;
-	let b = m1 * m2 * k3 + m1 * m3 * (k2 + k3) + m2 * m3 * (k1 + k2);
-	let c = k2 * k2 * m3 - m1 * k3 * (k3 + k2) - m2 * (k1 + k2) * k3 - m3 * (k1 + k2) * (k2 + k3) + m1 * k3 * k3;
-	let d = (k1 + k2) * (k2 + k3) * (k3) - k2 * k2 * k3 - k3 * k3 * (k1 + k2);
-
-	lambda = CubicSolve(a, b, c, d);
-	lambda.sort();
+	let mass1 = 2250;
+	let mass2 = 2250;
+	let mass3 = 2250;
+	let stiff1 = 10364000;
+	let stiff2 = 10364000;
+	let stiff3 = 10364000;
 
 	let timec = 1;
 	let mode = 1;
+
+	let bldg = [];
+	let ground = [];
+	let lambda;
+	let timeperiod;
 
 	const canvas = document.getElementById("main");
 	canvas.width = 1200;
@@ -184,51 +184,16 @@ document.addEventListener('DOMContentLoaded', function(){
 	const ctx = canvas.getContext("2d");
 
 	const fill = "#A9A9A9";
-	const border = "black";
 	const lineWidth = 1.5;
 
 	const fps = 20;
 	let dirn = [];
 	let speed = [];
 
-	if(mode == 1)
-	{
-		dirn = [1, 1, 1];
-		speed = [1, 2, 3];
-		timec = lambda[0].real;
-	}
-	else if(mode == 2)
-	{
-		dirn = [1, -1, -1];
-		timec = lambda[1].real;
-		speed = [1, 2, 1];
-	}
-	else
-	{
-		dirn = [1, -1, 1];
-		timec = lambda[2].real;
-	}
-	let timeperiod = 2 * Math.PI;
-	let root = Math.sqrt(timec);
-	timeperiod /= root;
-	timeperiod *= 50;
-
 	const startx = 500;
 	const endx = 700;
-	const thickness = 10;
 
-	let bldg = [
-		[[startx, height], [endx, height], [endx, 2 * height], [startx, 2 * height]],
-		[[startx, 2 * height], [endx, 2 * height], [endx, 3 * height], [startx, 3 * height]],
-		[[startx, 3 * height], [endx, 3 * height], [endx, 4 * height], [startx, 4 * height]]
-	];
-
-	let ground = [
-		[startx - 300, 4 * height + 40],
-		[startx-250, 4 * height - 40],
-		[endx + 300, 4 * height - 40],
-		[endx + 250 , 4 * height + 40],
-	];
+	setall();
 
 	function draw()
 	{
@@ -317,23 +282,26 @@ document.addEventListener('DOMContentLoaded', function(){
 	let tmHandle = window.setTimeout(draw, 1000 / fps);
 })
 
-function CubicSolve(a, b, c, d){
+function CubicSolve(coeff_x_3, coeff_x_2, coeff_x, c){
 
-	b /= a;
-	c /= a;
-	d /= a;
+	// c = constant of cubic equation
+	coeff_x_2 /= coeff_x_3;
+	coeff_x /= coeff_x_3;
+	c /= coeff_x_3;
 
 	let discrim, q, r, dum1, s, t, term1, r13;
 
-	q = (3.0 * c - (b * b)) / 9.0;
-	r = -(27.0 * d) + b * (9.0 * c - 2.0 * (b * b));
+	q = (3.0 * coeff_x - (coeff_x_2 * coeff_x_2)) / 9.0;
+	r = -(27.0 * c) + coeff_x_2 * (9.0 * coeff_x - 2.0 * (coeff_x_2 * coeff_x_2));
 	r /= 54.0;
+	
+	// q,r,s,t have there meaning as per we solve cubic equation by factorization
 
 	discrim = q * q * q + r * r;
 
 	let roots = [ {real: 0, i: 0}, {real: 0, i: 0}, {real: 0, i: 0} ];
 
-	term1 = (b / 3.0);
+	term1 = (coeff_x_2 / 3.0);
 
 	if (discrim > 0) 
 	{ // one root real, two are complex
