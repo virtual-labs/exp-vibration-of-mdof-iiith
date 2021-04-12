@@ -1,13 +1,96 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-		<!-- Your code goes here-->
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+		<link rel="stylesheet" href="./css/main.css">
+	</head>
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
-</body>
+	<body class="page">
+		<div class="columns is-mobile is-centered">
+			<div class="column has-text-centered">
+				<h1 class="title">Vibration of M.D.O.F System</h1>
+			</div>
+		</div>
+
+		<div class="columns is-centered">
+			<div class="column has-text-centered">
+				<div class="slidecontainer">
+					<p>MASS 1 (kg): <span id="demo_mass1"></span></p>
+					<input type="range" min="1000" max="10000" value="2250" class="slider" id="mass1">
+				</div>
+			</div>
+
+			<div class="column has-text-centered">
+				<div class="slidecontainer">
+					<p>MASS 2 (kg): <span id="demo_mass2"></span></p>
+					<input type="range" min="1000" max="10000" value="2250" class="slider" id="mass2">
+				</div>
+			</div>
+
+			<div class="column has-text-centered">
+				<div class="slidecontainer">
+					<p>MASS 3 (kg): <span id="demo_mass3"></span></p>
+					<input type="range" min="1000" max="10000" value="2250" class="slider" id="mass3">
+				</div> 
+			</div>
+		</div>
+
+		<div class="columns is-centered">
+			<div class="column has-text-centered">
+				<div class="slidecontainer">
+					<p>STIFFNESS 1 (N/m): <span id="demo_stiffness1"></span></p>
+					<input type="range" min="1036000" max="103800000" value="10364000" class="slider" id="stiffness1">
+				</div>
+			</div>
+
+			<div class="column has-text-centered">
+				<div class="slidecontainer">
+					<p>STIFFNESS 2 (N/m): <span id="demo_stiffness2"></span></p>
+					<input type="range" min="1036000" max="103800000" value="10364000" class="slider" id="stiffness2">
+				</div>
+			</div>
+
+			<div class="column has-text-centered">
+				<div class="slidecontainer">
+					<p>STIFFNESS 3 (N/m): <span id="demo_stiffness3"></span></p>
+					<input type="range" min="1036000" max="103800000" value="10364000" class="slider" id="stiffness3">
+				</div>
+			</div>
+		</div>
+
+		<div class="columns is-centered">
+			<div class="column has-text-centered">
+				<div class="slidecontainer">
+					<p>MODE: <span id="demo_mode"></span></p>
+					<input type="range" min="1" max="3" value="1" class="slider" id="mode">
+				</div>
+			</div>
+		</div>
+
+		<div class="columns is-mobile is-centered">
+			<div class="column has-text-centered">
+				<button id="play" class="action-button">Play</button>
+				<button id="pause" class="action-button">Pause</button>
+				<button id="restart" class="action-button">Restart</button>
+
+
+			</div>
+		</div>
+
+		<div class="columns is-mobile is-centered">
+			<div class="column has-text-centered">
+				<div class="hero is-small">
+					<div class="hero-body">
+						<canvas class="main" id="main"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://unpkg.com/mathjs@9.2.0/lib/browser/math.js"></script>
+		<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+		<script src="./js/main.js"></script>
+	</body>
 </html>
