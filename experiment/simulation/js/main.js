@@ -1,5 +1,3 @@
-//Your JavaScript goes in here
-
 document.addEventListener('DOMContentLoaded', function(){
 
 	const playButton = document.getElementById('play');
