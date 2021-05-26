@@ -1,1 +1,1 @@
-### Vibration of M.D.O.F system
+## Vibration of M.D.O.F system
