@@ -1,30 +1,30 @@
-Equation of motion of multi degree of freedom system in matrix form --
+Equation of motion of multi degree of freedom system in matrix form -- <br>
 
-[m]{x''} + [x]{x'} + [k]{x} = -xg(t)[m]{I}
+[m]{x''} + [x]{x'} + [k]{x} = -xg(t)[m]{I} <br>
 
-where,
+where, <br>
 
-[m] = Mass Matrix.
+[m] = Mass Matrix. <br>
 
-[k] = Stiffness Matrix.
+[k] = Stiffness Matrix. <br>
 
-[c] = Damping Matrix
+[c] = Damping Matrix <br>
 
-{I} = Unit Vector
+{I} = Unit Vector <br>
 
 x''g(t) = Ground Motion
 
-The physical coordinates {x} may be related with normal or prinicipal coordinates {q} as,
+The physical coordinates {x} may be related with normal or prinicipal coordinates {q} as,<br>
 
-{x} = [φ]{q}
+{x} = [φ]{q}<br>
 
-where,[φ] = Modal Matrix.
+where,[φ] = Modal Matrix.<br>
 
-Time Derivate of {x} are
+Time Derivate of {x} are<br>
 
-{x'} = [φ]{q'}
+{x'} = [φ]{q'}<br>
 
-{x''} = [φ]{q''}
+{x''} = [φ]{q''}<br>
 
 
 [Read More](doc/6.Theory.pdf)
