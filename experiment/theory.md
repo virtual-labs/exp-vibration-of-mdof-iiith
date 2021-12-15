@@ -27,4 +27,4 @@ Time Derivate of {x} are<br>
 {x''} = [φ]{q''}<br>
 
 
-[Read More](docs/6.Theory.pdf)
+[Read More](docs/6.Thoery.pdf)
