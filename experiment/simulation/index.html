@@ -1,89 +1,65 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"> -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.6-b/css/style.css">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.6-b/css/style.min.css">
 		<link rel="stylesheet" href="./css/main.css">
-	</head>
-		<div class="columns is-centered">
-			<div class="column has-text-centered">
-				<div class="v-slider">
-					<p>MASS 1: <span id="demo_mass1"></span></p>
-					<input type="range" min="1000" max="10000" value="2250" class="v-slider" id="mass1">
-				</div>
-			</div>
-
-			<div class="column has-text-centered">
-				<div class="v-slider">
-					<p>MASS 2: <span id="demo_mass2"></span></p>
-					<input type="range" min="1000" max="10000" value="2250" class="v-slider" id="mass2">
-				</div>
-			</div>
-
-			<div class="column has-text-centered">
-				<div class="v-slider">
-					<p>MASS 3: <span id="demo_mass3"></span></p>
-					<input type="range" min="1000" max="10000" value="2250" class="v-slider" id="mass3">
-				</div> 
-			</div>
-		</div>
-
-		<div class="columns is-centered">
-			<div class="column has-text-centered">
-				<div class="v-slider">
-					<p>STIFFNESS 1: <span id="demo_stiffness1"></span></p>
-					<input type="range" min="1036000" max="103800000" value="10364000" class="v-slider" id="stiffness1">
-				</div>
-			</div>
-
-			<div class="column has-text-centered">
-				<div class="v-slider">
-					<p>STIFFNESS 2: <span id="demo_stiffness2"></span></p>
-					<input type="range" min="1036000" max="103800000" value="10364000" class="v-slider" id="stiffness2">
-				</div>
-			</div>
-
-			<div class="column has-text-centered">
-				<div class="v-slider">
-					<p>STIFFNESS 3: <span id="demo_stiffness3"></span></p>
-					<input type="range" min="1036000" max="103800000" value="10364000" class="v-slider" id="stiffness3">
-				</div>
-			</div>
-		</div>
-
-		<div class="columns is-centered">
-			<div class="column has-text-centered">
-				<div class="v-slider">
-					<p>MODE: <span id="demo_mode"></span></p>
-					<input type="range" min="1" max="3" value="1" class="v-slider" id="mode">
-				</div>
-			</div>
-		</div>
-
-		<div class="columns is-mobile is-centered">
-			<div class="column has-text-centered">
-				<button id="play" class="v-button">Play</button>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+   </head>
+   <body class="page">
+      <div class="columns is-centered is-flex">
+         <div class="column mt-2 is-10-desktop is-10-tablet is-10-mobile has-text-centered">
+            <div class="column center-content">
+            </div>
+            <div class="columns is-mobile is-centered is-flex">
+               <div id="anime-demo" class="column has-text-centered controls">
+                 <button id="play" class="v-button">Play</button>
 				<button id="pause" class="v-button">Pause</button>
 				<button id="restart" class="v-button">Restart</button>
 
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- -->
+      <div class="columns is-centered is-variable is-flex is-flex-wrap-wrap workspace">
+         <div id="apparatus" class="column has-text-centered is-2-desktop is-5-tablet is-5-mobile apparatus">
+            <div class="v-datalist-container">
+               <div class="v-datalist-title"  >Input Parameters</div>
+               <p>MASS 1: <span id="demo_mass1"></span></p>
+					<input type="range" min="1000" max="10000" value="2250" class="v-slider" id="mass1">
+					<p>MASS 2: <span id="demo_mass2"></span></p>
+					<input type="range" min="1000" max="10000" value="2250" class="v-slider" id="mass2">
+					<p>MASS 3: <span id="demo_mass3"></span></p>
+					<input type="range" min="1000" max="10000" value="2250" class="v-slider" id="mass3">
+					<p>STIFFNESS 1: <span id="demo_stiffness1"></span></p>
+					<input type="range" min="1036000" max="103800000" value="10364000" class="v-slider" id="stiffness1">
+					<p>STIFFNESS 2: <span id="demo_stiffness2"></span></p>
+					<input type="range" min="1036000" max="103800000" value="10364000" class="v-slider" id="stiffness2">
+					<p>STIFFNESS 3: <span id="demo_stiffness3"></span></p>
+					<input type="range" min="1036000" max="103800000" value="10364000" class="v-slider" id="stiffness3">
+					<p>MODE: <span id="demo_mode"></span></p>
+					<input type="range" min="1" max="3" value="1" class="v-slider" id="mode">
 
-			</div>
-		</div>
-
-		<div class="columns is-mobile is-centered">
-			<div class="column has-text-centered">
-				<div class="column is-small">
-					<div class="column">
-						<canvas class="v-canvas-container" id="main"></canvas>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="https://unpkg.com/mathjs@9.2.0/lib/browser/math.js"></script>
+            </div>
+         </div>
+      
+         <div class="column has-text-centered is-9-desktop is-10-tablet is-10-mobile simulation v-canvas-container v-details-container" id="container">
+            <div class="columns">
+               <!-<div class="columns">
+               	<canvas  id="main" style="width: 100%; max-width: 700px; height: 100%"></canvas>
+               </div>
+            </div>
+             
+         </div>
+      </div>
+      <script src="https://unpkg.com/mathjs@9.2.0/lib/browser/math.js"></script>
 		<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-		<script src="./js/main.js"></script>
-	</body>
+		<script src="./js/main.js"></script>       
+   </body>
 </html>
+
+
+
+
